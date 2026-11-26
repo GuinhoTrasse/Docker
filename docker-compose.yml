@@ -1,0 +1,21 @@
+services:
+  app:
+    build: ./app
+    environment:
+      SECRET_KEY: senhasecreta
+    volumes:
+      - dados:/data
+      - uploads:/app/uploads
+    restart: unless-stopped
+
+  proxy:
+    build: ./proxy
+    ports:
+      - "8080:80"
+    depends_on:
+      - app
+    restart: unless-stopped
+
+volumes:
+  dados:
+  uploads:
